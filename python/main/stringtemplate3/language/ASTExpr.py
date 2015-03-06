@@ -415,9 +415,18 @@ class ASTExpr(Expr):
         else:
             # use getPropertyName() lookup
             propertyName = str(property)
+            m = None
+            methodSuffix = propertyName
+            methodName = 'get_' + methodSuffix
+            if hasattr(o, methodName):
+                m = getattr(o, methodName)
+            else:
+                methodName = 'is_' + methodSuffix
+                if hasattr(o, methodName):
+                    m = getattr(o, methodName)
+                else:
             methodSuffix = propertyName[0].upper() + propertyName[1:]
             methodName = 'get' + methodSuffix
-            m = None
             if hasattr(o, methodName):
                 m = getattr(o, methodName)
             else:
