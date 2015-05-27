@@ -438,6 +438,8 @@ class ASTExpr(Expr):
                     try:
                         try:
                             value = getattr(o, propertyName)
+                                    if callable(value):
+                                        m = value
                         except AttributeError, ae2:
                             this.error('Can\'t get property ' + propertyName +
                                        ' using method get/is' + methodSuffix +
